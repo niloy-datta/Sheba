@@ -271,3 +271,61 @@
     padding: 1.5rem 1rem;
   }
 }
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1.5rem 0;
+  position: relative;
+}
+
+.auth-divider::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--border-color);
+  z-index: 0;
+}
+
+.auth-divider span {
+  background: var(--card-bg, #fff);
+  padding: 0 1rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  z-index: 1;
+}
+
+[data-theme="dark"] .auth-divider span {
+  background: #1a1a2e;
+  /* Dark theme background matching modal */
+}
+
+.github-login-button {
+  width: 100%;
+  padding: 0.8rem;
+  background: #24292e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.github-login-button:hover {
+  background: #2f363d;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.github-icon {
+  fill: white;
+}

@@ -47,8 +47,10 @@ function TeacherProfileCreate({ onSubmit, onCancel }: TeacherProfileProps) {
   const [currentStep, setCurrentStep] = useState(1)
   const totalSteps = 4
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value, type } = e.target
+    const checked = (e.target as HTMLInputElement).checked
+
     setFormData(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? checked : value
@@ -63,7 +65,7 @@ function TeacherProfileCreate({ onSubmit, onCancel }: TeacherProfileProps) {
     }
   }
 
-  const handleSubjectToggle = (subject) => {
+  const handleSubjectToggle = (subject: string) => {
     setFormData(prev => {
       const newSubjects = prev.selectedSubjects.includes(subject)
         ? prev.selectedSubjects.filter(s => s !== subject)
@@ -93,7 +95,7 @@ function TeacherProfileCreate({ onSubmit, onCancel }: TeacherProfileProps) {
     }))
   }
 
-  const handleQualificationChange = (index, value) => {
+  const handleQualificationChange = (index: number, value: string) => {
     const newQualifications = [...formData.qualifications]
     newQualifications[index] = value
     setFormData(prev => ({
@@ -109,15 +111,15 @@ function TeacherProfileCreate({ onSubmit, onCancel }: TeacherProfileProps) {
     }))
   }
 
-  const removeQualification = (index) => {
+  const removeQualification = (index: number) => {
     setFormData(prev => ({
       ...prev,
       qualifications: prev.qualifications.filter((_, i) => i !== index)
     }))
   }
 
-  const handleFileChange = (e, field) => {
-    const file = e.target.files[0]
+  const handleFileChange = (e: any, field: string) => {
+    const file = e.target.files?.[0]
     if (file) {
       if (field === 'profilePhoto') {
         setFormData(prev => ({
@@ -133,8 +135,8 @@ function TeacherProfileCreate({ onSubmit, onCancel }: TeacherProfileProps) {
     }
   }
 
-  const validateStep = (step) => {
-    const newErrors = {}
+  const validateStep = (step: number) => {
+    const newErrors: Errors = {}
 
     if (step === 1) {
       if (!formData.email.trim()) newErrors.email = 'ইমেইল প্রয়োজন'
@@ -181,7 +183,7 @@ function TeacherProfileCreate({ onSubmit, onCancel }: TeacherProfileProps) {
     setCurrentStep(prev => Math.max(prev - 1, 1))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (validateStep(currentStep)) {
       const teacherData = {
