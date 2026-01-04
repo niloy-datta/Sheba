@@ -1,0 +1,154 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Light theme colors */
+  --bg-primary: #f5f7fa;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f8f9fa;
+  --text-primary: #1a1a1a;
+  --text-secondary: #4a5568;
+  --text-tertiary: #718096;
+  --border-color: #e2e8f0;
+  --shadow-sm: rgba(0, 0, 0, 0.1);
+  --shadow-md: rgba(0, 0, 0, 0.15);
+  --shadow-lg: rgba(0, 0, 0, 0.2);
+  --accent-primary: #667eea;
+  --accent-secondary: #764ba2;
+  --accent-hover: #5568d3;
+  --header-bg: rgba(255, 255, 255, 0.95);
+  --card-bg: #ffffff;
+  --input-bg: #ffffff;
+  --input-border: #e2e8f0;
+
+  /* Shared Identity Colors */
+  --primary-color: #3b82f6;
+  /* Blue-500 */
+  --secondary-color: #1e3a8a;
+  /* Blue-900 */
+  --accent-color: #10b981;
+  /* Emerald-500 */
+  --primary-rgb: 59, 130, 246;
+}
+
+[data-theme="dark"] {
+  /* Dark theme colors - optimized for black hole background */
+  --bg-primary: transparent;
+  --bg-secondary: rgba(20, 20, 40, 0.95);
+  --bg-tertiary: rgba(30, 30, 60, 0.95);
+  --text-primary: #ffffff;
+  --text-secondary: #e2e8f0;
+  --text-tertiary: #cbd5e1;
+  --border-color: rgba(120, 119, 198, 0.4);
+  --shadow-sm: rgba(0, 0, 0, 0.5);
+  --shadow-md: rgba(0, 0, 0, 0.6);
+  --shadow-lg: rgba(0, 0, 0, 0.7);
+  --accent-primary: #818cf8;
+  --accent-secondary: #a78bfa;
+  --accent-hover: #6366f1;
+  --header-bg: rgba(10, 10, 20, 0.9);
+  --card-bg: rgba(15, 15, 35, 0.98);
+  --input-bg: rgba(25, 25, 50, 0.95);
+  --input-border: rgba(120, 119, 198, 0.5);
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  position: relative;
+}
+
+[data-theme="dark"] body {
+  background: #000000;
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 20%, rgba(120, 119, 198, 0.05) 0%, transparent 50%);
+  position: relative;
+  overflow-x: hidden;
+}
+
+[data-theme="dark"] body::before {
+  content: '';
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 600px;
+  height: 600px;
+  margin: -300px 0 0 -300px;
+  background: radial-gradient(circle, rgba(120, 119, 198, 0.15) 0%, rgba(60, 60, 120, 0.1) 30%, transparent 70%);
+  border-radius: 50%;
+  animation: blackHolePulse 8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-theme="dark"] body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    radial-gradient(2px 2px at 20% 30%, #fff, transparent),
+    radial-gradient(2px 2px at 60% 70%, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1px 1px at 50% 50%, #fff, transparent),
+    radial-gradient(1px 1px at 80% 10%, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(2px 2px at 90% 60%, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1px 1px at 33% 80%, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1px 1px at 10% 40%, rgba(255, 255, 255, 0.4), transparent),
+    radial-gradient(2px 2px at 70% 20%, rgba(255, 255, 255, 0.6), transparent);
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  animation: starfield 200s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+@keyframes blackHolePulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+
+  50% {
+    transform: scale(1.1);
+    opacity: 0.5;
+  }
+}
+
+@keyframes starfield {
+  from {
+    transform: translate(0, 0);
+  }
+
+  to {
+    transform: translate(-200px, -200px);
+  }
+}
+
+#root {
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

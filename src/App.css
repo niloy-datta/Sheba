@@ -1,0 +1,44 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+[data-theme="dark"] .app {
+  background: transparent;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  background: var(--bg-primary);
+  position: relative;
+  z-index: 1;
+}
+
+[data-theme="dark"] .main-content {
+  background: transparent;
+}
+
+.main-content.homepage-content {
+  padding: 0;
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 1rem;
+  }
+  
+  .main-content.homepage-content {
+    padding: 0;
+  }
+}

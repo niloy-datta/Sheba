@@ -1,0 +1,258 @@
+.admin-panel {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease-in;
+}
+
+.admin-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.admin-header h1 {
+  color: #333;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.admin-tab {
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #e0e0e0;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  color: #666;
+  transition: all 0.3s;
+}
+
+.admin-tab:hover {
+  border-color: #667eea;
+  color: #667eea;
+}
+
+.admin-tab.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.admin-content {
+  min-height: 400px;
+}
+
+.verifications-section h2,
+.bookings-section h2,
+.teachers-section h2 {
+  color: #333;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.empty-state {
+  text-align: center;
+  color: #666;
+  padding: 3rem;
+  font-size: 1.1rem;
+}
+
+.verification-list,
+.bookings-list {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.verification-card,
+.booking-card-admin {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 2px solid #e0e0e0;
+}
+
+.teacher-preview-admin {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.teacher-preview-admin img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.teacher-preview-admin h3 {
+  color: #333;
+  font-size: 1.2rem;
+  margin: 0 0 0.5rem 0;
+  font-weight: 700;
+}
+
+.teacher-preview-admin p {
+  color: #666;
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+}
+
+.qualifications-preview {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+}
+
+.qualifications-preview strong {
+  color: #333;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.qualifications-preview ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.qualifications-preview li {
+  padding: 0.25rem 0;
+  color: #666;
+}
+
+.verification-actions,
+.booking-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.approve-button,
+.reject-button {
+  flex: 1;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.approve-button {
+  background: #10b981;
+  color: white;
+}
+
+.approve-button:hover {
+  background: #059669;
+  transform: translateY(-2px);
+}
+
+.reject-button {
+  background: #ef4444;
+  color: white;
+}
+
+.reject-button:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
+}
+
+.booking-info h3 {
+  color: #333;
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+}
+
+.booking-info p {
+  color: #666;
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+}
+
+.teachers-table {
+  overflow-x: auto;
+}
+
+.teachers-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.teachers-table th,
+.teachers-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.teachers-table th {
+  background: #f8f9fa;
+  color: #333;
+  font-weight: 600;
+}
+
+.teachers-table td {
+  color: #666;
+}
+
+.verified-badge-table {
+  background: #10b981;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.pending-badge {
+  background: #f59e0b;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.action-button {
+  padding: 0.5rem 1rem;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.action-button:hover {
+  background: #5568d3;
+}
+
+@media (max-width: 768px) {
+  .admin-panel {
+    padding: 1rem;
+  }
+
+  .admin-tabs {
+    flex-direction: column;
+  }
+
+  .verification-actions,
+  .booking-actions {
+    flex-direction: column;
+  }
+
+  .teachers-table {
+    font-size: 0.85rem;
+  }
+}
