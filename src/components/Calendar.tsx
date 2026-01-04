@@ -1,20 +1,30 @@
 import React, { useState } from 'react'
 import './Calendar.css'
 
-function Calendar({ events = [], onDateClick }) {
+interface CalendarEvent {
+    date: string;
+    [key: string]: any;
+}
+
+interface CalendarProps {
+    events?: CalendarEvent[];
+    onDateClick?: (date: Date) => void;
+}
+
+function Calendar({ events = [], onDateClick }: CalendarProps) {
     const [currentDate, setCurrentDate] = useState(new Date())
     const [selectedDate, setSelectedDate] = useState(new Date())
 
     // Helper functions
-    const getDaysInMonth = (date) => {
+    const getDaysInMonth = (date: Date) => {
         return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
     }
 
-    const getFirstDayOfMonth = (date) => {
+    const getFirstDayOfMonth = (date: Date) => {
         return new Date(date.getFullYear(), date.getMonth(), 1).getDay()
     }
 
-    const formatDate = (date) => {
+    const formatDate = (date: Date) => {
         return date.toISOString().split('T')[0]
     }
 
@@ -26,7 +36,7 @@ function Calendar({ events = [], onDateClick }) {
         setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1))
     }
 
-    const handleDateClick = (day) => {
+    const handleDateClick = (day: number) => {
         const newDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
         setSelectedDate(newDate)
         if (onDateClick) {

@@ -203,7 +203,7 @@ function TeacherProfileCreate({ onSubmit, onCancel }: TeacherProfileProps) {
   }
 
   const getAvailableSubjects = () => {
-    const allSubjects = new Set()
+    const allSubjects = new Set<string>()
 
     // Get all subjects from all selected classes
     formData.selectedClasses.forEach(classLevel => {

@@ -4,9 +4,58 @@ import BookingModal from './BookingModal'
 import Calendar from './Calendar'
 import './StudentDashboard.css'
 
-function StudentDashboard({ teachers, user, onBookingSubmit }) {
+interface Teacher {
+  id: string;
+  name: string;
+  title: string;
+  rating: number;
+  reviews: number;
+  students: number;
+  pricePerHour: number;
+  classes: string[];
+  subjects: string[];
+  district: string;
+  area: string;
+  location: string;
+  verified: boolean;
+  avatar?: string;
+  medium?: string | string[];
+  gender?: string;
+  experience?: number;
+}
+
+interface User {
+  id: string;
+  name: string;
+  [key: string]: any;
+}
+
+interface StudentDashboardProps {
+  teachers: Teacher[];
+  user: User | null;
+  onBookingSubmit: (booking: any) => void;
+}
+
+interface Filters {
+  district: string;
+  area: string;
+  medium: string;
+  classes: string[];
+  subjects: string[];
+  location: string;
+  priceRange: string;
+  verifiedOnly: boolean;
+  minRating: string;
+  experience: string;
+  sortBy: string;
+  gender: string;
+  salaryMin: number;
+  salaryMax: number;
+}
+
+function StudentDashboard({ teachers, user, onBookingSubmit }: StudentDashboardProps) {
   const [searchTerm, setSearchTerm] = useState('')
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<Filters>({
     district: '',
     area: '',
     medium: '',
@@ -22,26 +71,26 @@ function StudentDashboard({ teachers, user, onBookingSubmit }) {
     salaryMin: 100,
     salaryMax: 10000
   })
-  const [selectedTeacher, setSelectedTeacher] = useState(null)
+  const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null)
   const [showBookingModal, setShowBookingModal] = useState(false)
-  const [myBookings, setMyBookings] = useState([])
+  const [myBookings, setMyBookings] = useState<any[]>([])
 
   const filteredTeachers = teachers.filter(teacher => {
     // Search term filter
     const matchesSearch = searchTerm === '' ||
       teacher.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       teacher.subjects.some(sub => sub.toLowerCase().includes(searchTerm.toLowerCase())) ||
-      teacher.title?.toLowerCase().includes(searchTerm.toLowerCase())
+      (teacher.title && teacher.title.toLowerCase().includes(searchTerm.toLowerCase()))
 
     // District filter
     const matchesDistrict = !filters.district ||
-      teacher.district?.toLowerCase() === filters.district.toLowerCase() ||
-      teacher.location?.toLowerCase().includes(filters.district.toLowerCase())
+      (teacher.district && teacher.district.toLowerCase() === filters.district.toLowerCase()) ||
+      (teacher.location && teacher.location.toLowerCase().includes(filters.district.toLowerCase()))
 
     // Area filter
     const matchesArea = !filters.area ||
-      teacher.area?.toLowerCase() === filters.area.toLowerCase() ||
-      teacher.location?.toLowerCase().includes(filters.area.toLowerCase())
+      (teacher.area && teacher.area.toLowerCase() === filters.area.toLowerCase()) ||
+      (teacher.location && teacher.location.toLowerCase().includes(filters.area.toLowerCase()))
 
     // Medium filter
     const matchesMedium = !filters.medium ||
@@ -70,7 +119,7 @@ function StudentDashboard({ teachers, user, onBookingSubmit }) {
         teacher.pricePerHour <= (filters.salaryMax || 10000))
 
     // Rating filter
-    const matchesRating = parseFloat(teacher.rating) >= parseFloat(filters.minRating)
+    const matchesRating = parseFloat(teacher.rating.toString()) >= parseFloat(filters.minRating)
 
     // Verified filter
     const matchesVerified = !filters.verifiedOnly || teacher.verified
@@ -112,7 +161,7 @@ function StudentDashboard({ teachers, user, onBookingSubmit }) {
     return 0
   })
 
-  const handleBookTeacher = (teacher) => {
+  const handleBookTeacher = (teacher: Teacher) => {
     if (!user) {
       alert('দয়া করে প্রথমে লগইন করুন')
       return
@@ -121,7 +170,7 @@ function StudentDashboard({ teachers, user, onBookingSubmit }) {
     setShowBookingModal(true)
   }
 
-  const handleBookingSubmit = (bookingData) => {
+  const handleBookingSubmit = (bookingData: any) => {
     const newBooking = {
       id: `booking_${Date.now()}`,
       ...bookingData,
