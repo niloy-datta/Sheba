@@ -273,7 +273,7 @@ function App() {
     const savedBookings = localStorage.getItem('bookings')
     return savedBookings ? JSON.parse(savedBookings) : []
   })
-  const [pendingRole, setPendingRole] = useState(null) // Track selected role before showing form
+  const [, setPendingRole] = useState<string | null>(null) // Track selected role before showing form
   const [teachersState, setTeachersState] = useState(() => {
     // Load teachers from localStorage or use default
     const savedTeachers = localStorage.getItem('teachers')
@@ -282,7 +282,7 @@ function App() {
         const parsed = JSON.parse(savedTeachers)
         // Merge with default teachers, avoiding duplicates
         const defaultIds = new Set(teachers.map(t => t.id))
-        const saved = parsed.filter(t => !defaultIds.has(t.id))
+        const saved = parsed.filter((t: any) => !defaultIds.has(t.id))
         return [...teachers, ...saved]
       } catch (e) {
         console.error('Error loading teachers from localStorage:', e)
@@ -332,13 +332,14 @@ function App() {
   // Apply theme on initial mount
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const toggleTheme = () => {
     setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light')
   }
 
-  const handleVideoSelect = (video) => {
+  const handleVideoSelect = (video: any) => {
     setSelectedVideo(video)
     setView('video')
   }
@@ -349,18 +350,18 @@ function App() {
     setSelectedTeacher(null)
   }
 
-  const handleViewChange = (newView) => {
+  const handleViewChange = (newView: string) => {
     setView(newView)
     setSelectedVideo(null)
     setSelectedTeacher(null)
   }
 
-  const handleHomeSearch = (searchFilters) => {
+  const handleHomeSearch = (searchFilters: any) => {
     // Switch to student dashboard for finding teachers
     setView('find-tutors')
   }
 
-  const handleStudentBookingSubmit = (bookingData) => {
+  const handleStudentBookingSubmit = (bookingData: any) => {
     const newBooking = {
       id: `booking_${Date.now()}`,
       ...bookingData,
@@ -376,12 +377,12 @@ function App() {
     console.log('New booking:', newBooking)
   }
 
-  const handleTeacherSelect = (teacher) => {
+  const handleTeacherSelect = (teacher: any) => {
     setSelectedTeacher(teacher)
     setView('teacher')
   }
 
-  const handleLogin = (credentials) => {
+  const handleLogin = (credentials: any) => {
     // Simulate login - in real app, this would call an API
     console.log('Login:', credentials)
 
@@ -408,7 +409,7 @@ function App() {
     setShowAuthModal(false)
   }
 
-  const handleRoleSelect = (role) => {
+  const handleRoleSelect = (role: string) => {
     // When user selects a role, show the appropriate profile creation form
     setPendingRole(role)
     setShowAuthModal(false)
@@ -419,7 +420,7 @@ function App() {
     }
   }
 
-  const handleRegister = (userData) => {
+  const handleRegister = (userData: any) => {
     // Simulate registration - in real app, this would call an API
     console.log('Register:', userData)
     setUser({
@@ -437,7 +438,7 @@ function App() {
     setView('home')
   }
 
-  const handleBookingSubmit = (bookingData) => {
+  const handleBookingSubmit = (bookingData: any) => {
     // Add booking to state
     const newBooking = {
       id: `booking_${Date.now()}`,
@@ -452,7 +453,7 @@ function App() {
     console.log('New booking:', newBooking)
   }
 
-  const handleVerifyTeacher = (teacherId, status) => {
+  const handleVerifyTeacher = (teacherId: any, status: string) => {
     setTeachersState(prev => {
       const updated = prev.map(teacher =>
         teacher.id === teacherId
@@ -467,9 +468,9 @@ function App() {
     })
   }
 
-  const handleApproveBooking = (bookingId) => {
-    setBookings(prev => {
-      const updated = prev.map(booking =>
+  const handleApproveBooking = (bookingId: string) => {
+    setBookings((prev: any[]) => {
+      const updated = prev.map((booking: any) =>
         booking.id === bookingId
           ? { ...booking, status: 'accepted' }
           : booking
@@ -479,7 +480,7 @@ function App() {
     })
   }
 
-  const handleTeacherProfileSubmit = (teacherData) => {
+  const handleTeacherProfileSubmit = (teacherData: any) => {
     const teacherId = `teacher_${Date.now()}`
 
     // Create user account
@@ -498,7 +499,7 @@ function App() {
       id: teacherId,
       ...teacherData,
       subjects: teacherData.selectedSubjects,
-      classes: teacherData.selectedClasses.map(c => `Class ${c}`),
+      classes: teacherData.selectedClasses.map((c: string) => `Class ${c}`),
       pricePerHour: parseInt(teacherData.hourlyRate),
       experience: parseInt(teacherData.experience),
       rating: 0,
@@ -526,7 +527,7 @@ function App() {
     setView('teachers')
   }
 
-  const handleStudentProfileSubmit = (studentData) => {
+  const handleStudentProfileSubmit = (studentData: any) => {
     // Create user account with student profile data
     const studentId = `student_${Date.now()}`
     const newUser = {

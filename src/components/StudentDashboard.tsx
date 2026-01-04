@@ -339,7 +339,7 @@ function StudentDashboard({ teachers, user, onBookingSubmit }: StudentDashboardP
               <h3>আসন্ন ক্লাস</h3>
               <div className="bookings-list">
                 {myBookings
-                  .sort((a, b) => new Date(a.date) - new Date(b.date))
+                  .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
                   .map(booking => (
                     <div key={booking.id} className="booking-item">
                       <div className="booking-info">

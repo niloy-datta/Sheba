@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { classLevels, subjects } from '../data/subjects.js'
+import { classLevels, subjects } from '../data/subjects'
 import './StudentProfileCreate.css'
 
 function StudentProfileCreate({ onSubmit, onCancel }) {
@@ -17,19 +17,19 @@ function StudentProfileCreate({ onSubmit, onCancel }) {
     profilePhoto: null,
     dateOfBirth: '',
     gender: '',
-    
+
     // Academic Info
     currentClass: '',
     medium: '',
     schoolName: '',
     subjects: [],
-    
+
     // Learning Preferences
     preferredSubjects: [],
     learningStyle: '',
     preferredTime: '',
     budget: '',
-    
+
     // Additional Info
     guardianName: '',
     guardianPhone: '',
@@ -37,7 +37,7 @@ function StudentProfileCreate({ onSubmit, onCancel }) {
     bio: ''
   })
 
-  const [errors, setErrors] = useState({})
+  const [errors, setErrors] = useState<Record<string, string>>({})
   const [currentStep, setCurrentStep] = useState(1)
   const totalSteps = 4
 
@@ -47,7 +47,7 @@ function StudentProfileCreate({ onSubmit, onCancel }) {
       ...prev,
       [name]: type === 'checkbox' ? checked : value
     }))
-    
+
     // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({
@@ -76,9 +76,9 @@ function StudentProfileCreate({ onSubmit, onCancel }) {
     }
   }
 
-  const validateStep = (step) => {
-    const newErrors = {}
-    
+  const validateStep = (step: number) => {
+    const newErrors: Record<string, string> = {}
+
     if (step === 1) {
       if (!formData.email.trim()) newErrors.email = 'ইমেইল প্রয়োজন'
       if (!formData.password.trim()) newErrors.password = 'পাসওয়ার্ড প্রয়োজন'
@@ -90,13 +90,13 @@ function StudentProfileCreate({ onSubmit, onCancel }) {
       if (!formData.dateOfBirth) newErrors.dateOfBirth = 'জন্ম তারিখ প্রয়োজন'
       if (!formData.gender) newErrors.gender = 'লিঙ্গ নির্বাচন করুন'
     }
-    
+
     if (step === 2) {
       if (!formData.currentClass) newErrors.currentClass = 'বর্তমান ক্লাস নির্বাচন করুন'
       if (!formData.medium) newErrors.medium = 'মিডিয়াম নির্বাচন করুন'
       if (!formData.schoolName.trim()) newErrors.schoolName = 'স্কুলের নাম প্রয়োজন'
     }
-    
+
     if (step === 3) {
       if (formData.preferredSubjects.length === 0) {
         newErrors.preferredSubjects = 'কমপক্ষে একটি বিষয় নির্বাচন করুন'
@@ -126,7 +126,7 @@ function StudentProfileCreate({ onSubmit, onCancel }) {
         role: 'student',
         createdAt: new Date().toISOString()
       }
-      
+
       if (onSubmit) {
         onSubmit(studentData)
       }
@@ -168,7 +168,7 @@ function StudentProfileCreate({ onSubmit, onCancel }) {
         {currentStep === 1 && (
           <div className="form-step">
             <h2>ব্যক্তিগত তথ্য</h2>
-            
+
             <div className="form-group">
               <label>নাম *</label>
               <input
@@ -219,7 +219,7 @@ function StudentProfileCreate({ onSubmit, onCancel }) {
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="••••••••"
-                  minLength="6"
+                  minLength={6}
                   className={errors.password ? 'error' : ''}
                 />
                 {errors.password && <span className="error-message">{errors.password}</span>}
@@ -233,7 +233,7 @@ function StudentProfileCreate({ onSubmit, onCancel }) {
                   value={formData.confirmPassword}
                   onChange={handleChange}
                   placeholder="••••••••"
-                  minLength="6"
+                  minLength={6}
                   className={errors.confirmPassword ? 'error' : ''}
                 />
                 {errors.confirmPassword && <span className="error-message">{errors.confirmPassword}</span>}
@@ -299,7 +299,7 @@ function StudentProfileCreate({ onSubmit, onCancel }) {
                 value={formData.address}
                 onChange={handleChange}
                 placeholder="বিস্তারিত ঠিকানা"
-                rows="3"
+                rows={3}
               />
             </div>
 
@@ -379,7 +379,7 @@ function StudentProfileCreate({ onSubmit, onCancel }) {
                 value={formData.bio}
                 onChange={handleChange}
                 placeholder="আপনার শিক্ষাগত লক্ষ্য, শেখার পদ্ধতি ইত্যাদি সম্পর্কে লিখুন..."
-                rows="5"
+                rows={5}
               />
             </div>
           </div>

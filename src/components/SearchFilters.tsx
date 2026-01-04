@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { classLevels, locations, priceRanges, subjects } from '../data/subjects.js'
+import { classLevels, locations, priceRanges, subjects } from '../data/subjects'
 import './SearchFilters.css'
 
 function SearchFilters({ onFilterChange, filters }) {
@@ -19,12 +19,13 @@ function SearchFilters({ onFilterChange, filters }) {
     onFilterChange({ ...filters, classes: newClasses })
   }
 
-  const getAvailableSubjects = () => {
-    const allSubjects = new Set()
+  const getAvailableSubjects = (): string[] => {
+    const allSubjects = new Set<string>()
     filters.classes.forEach(classLevel => {
       const level = classLevels.find(c => c.value === classLevel)?.level
-      if (level && subjects[level]) {
-        Object.keys(subjects[level]).forEach(sub => allSubjects.add(sub))
+      if (level && subjects[level as keyof typeof subjects]) {
+        const levelSubjects = subjects[level as keyof typeof subjects] as unknown as Record<string, string[]>
+        Object.keys(levelSubjects).forEach(sub => allSubjects.add(sub))
       }
     })
     return Array.from(allSubjects)
@@ -34,7 +35,7 @@ function SearchFilters({ onFilterChange, filters }) {
     <div className="search-filters">
       <div className="filters-header">
         <h3>শিক্ষক খুঁজুন</h3>
-        <button 
+        <button
           className="toggle-advanced"
           onClick={() => setShowAdvanced(!showAdvanced)}
         >
@@ -79,7 +80,7 @@ function SearchFilters({ onFilterChange, filters }) {
 
         <div className="filter-section">
           <label>অবস্থান</label>
-          <select 
+          <select
             className="filter-select"
             value={filters.location}
             onChange={(e) => onFilterChange({ ...filters, location: e.target.value })}
@@ -93,7 +94,7 @@ function SearchFilters({ onFilterChange, filters }) {
 
         <div className="filter-section">
           <label>মূল্য পরিসীমা (টাকা/ঘণ্টা)</label>
-          <select 
+          <select
             className="filter-select"
             value={filters.priceRange}
             onChange={(e) => onFilterChange({ ...filters, priceRange: e.target.value })}
@@ -109,7 +110,7 @@ function SearchFilters({ onFilterChange, filters }) {
 
         <div className="filter-section">
           <label>ন্যূনতম রেটিং</label>
-          <select 
+          <select
             className="filter-select"
             value={filters.minRating}
             onChange={(e) => onFilterChange({ ...filters, minRating: e.target.value })}
@@ -139,7 +140,7 @@ function SearchFilters({ onFilterChange, filters }) {
         <div className="advanced-filters">
           <div className="filter-section">
             <label>অভিজ্ঞতা (বছর)</label>
-            <select 
+            <select
               className="filter-select"
               value={filters.experience}
               onChange={(e) => onFilterChange({ ...filters, experience: e.target.value })}
@@ -154,7 +155,7 @@ function SearchFilters({ onFilterChange, filters }) {
 
           <div className="filter-section">
             <label>সাজান</label>
-            <select 
+            <select
               className="filter-select"
               value={filters.sortBy}
               onChange={(e) => onFilterChange({ ...filters, sortBy: e.target.value })}
@@ -170,7 +171,7 @@ function SearchFilters({ onFilterChange, filters }) {
       )}
 
       <div className="filter-actions">
-        <button 
+        <button
           className="clear-filters"
           onClick={() => onFilterChange({
             classes: [],

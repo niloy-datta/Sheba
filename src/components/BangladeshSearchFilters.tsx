@@ -1,83 +1,105 @@
 import React, { useState } from 'react'
-import { districts, districtAreas, mediums, classLevels, admissionTests, professionalSkills } from '../data/bangladeshLocations.js'
-import { subjects, priceRanges } from '../data/subjects.js'
+import { districts, districtAreas, mediums, classLevels } from '../data/bangladeshLocations'
+import { subjects, priceRanges } from '../data/subjects'
 import './BangladeshSearchFilters.css'
 
-function BangladeshSearchFilters({ onFilterChange, filters }) {
+interface Filters {
+  district: string;
+  area: string;
+  medium: string;
+  classes: string[];
+  subjects: string[];
+  location: string;
+  priceRange: string;
+  verifiedOnly: boolean;
+  minRating: string;
+  experience: string;
+  sortBy: string;
+  gender: string;
+  salaryMin: number;
+  salaryMax: number;
+}
+
+interface BangladeshSearchFiltersProps {
+  onFilterChange: (filters: Filters) => void;
+  filters: Filters;
+}
+
+function BangladeshSearchFilters({ onFilterChange, filters }: BangladeshSearchFiltersProps) {
   const [selectedDistrict, setSelectedDistrict] = useState(filters.district || '')
   const [selectedMedium, setSelectedMedium] = useState(filters.medium || '')
 
-  const handleDistrictChange = (district) => {
+  const handleDistrictChange = (district: string) => {
     setSelectedDistrict(district)
-    onFilterChange({ 
-      ...filters, 
+    onFilterChange({
+      ...filters,
       district: district,
       area: '' // Reset area when district changes
     })
   }
 
-  const handleAreaChange = (area) => {
+  const handleAreaChange = (area: string) => {
     onFilterChange({ ...filters, area })
   }
 
-  const handleMediumChange = (medium) => {
+  const handleMediumChange = (medium: string) => {
     setSelectedMedium(medium)
-    onFilterChange({ 
-      ...filters, 
+    onFilterChange({
+      ...filters,
       medium: medium,
       classes: [], // Reset classes when medium changes
       subjects: [] // Reset subjects when medium changes
     })
   }
 
-  const handleClassChange = (classLevel) => {
+  const handleClassChange = (classLevel: string) => {
     const newClasses = filters.classes.includes(classLevel)
-      ? filters.classes.filter(c => c !== classLevel)
+      ? filters.classes.filter((c: string) => c !== classLevel)
       : [...filters.classes, classLevel]
     onFilterChange({ ...filters, classes: newClasses })
   }
 
-  const handleSubjectChange = (subject) => {
+  const handleSubjectChange = (subject: string) => {
     const newSubjects = filters.subjects.includes(subject)
-      ? filters.subjects.filter(s => s !== subject)
+      ? filters.subjects.filter((s: string) => s !== subject)
       : [...filters.subjects, subject]
     onFilterChange({ ...filters, subjects: newSubjects })
   }
 
-  const getAvailableAreas = () => {
-    if (!selectedDistrict || !districtAreas[selectedDistrict]) return []
-    return districtAreas[selectedDistrict]
+  const getAvailableAreas = (): string[] => {
+    if (!selectedDistrict || !districtAreas[selectedDistrict as keyof typeof districtAreas]) return []
+    return districtAreas[selectedDistrict as keyof typeof districtAreas]
   }
 
-  const getAvailableClasses = () => {
-    if (!selectedMedium || !classLevels[selectedMedium]) return []
-    return classLevels[selectedMedium]
+  const getAvailableClasses = (): any[] => {
+    if (!selectedMedium || !classLevels[selectedMedium as keyof typeof classLevels]) return []
+    return classLevels[selectedMedium as keyof typeof classLevels]
   }
 
-  const getAvailableSubjects = () => {
-    if (!selectedMedium || !subjects[selectedMedium]) return []
-    
-    const allSubjects = new Set()
-    const mediumSubjects = subjects[selectedMedium]
-    
+  const getAvailableSubjects = (): string[] => {
+    if (!selectedMedium || !subjects[selectedMedium as keyof typeof subjects]) return []
+
+    const allSubjects = new Set<string>()
+    const mediumSubjects = subjects[selectedMedium as keyof typeof subjects] as Record<string, Record<string, string[]>>
+
     // Get subjects based on selected classes
-    filters.classes.forEach(classLevel => {
-      Object.keys(mediumSubjects).forEach(level => {
+    filters.classes.forEach((classLevel: string) => {
+      Object.keys(mediumSubjects).forEach((level: string) => {
         if (mediumSubjects[level]) {
-          Object.keys(mediumSubjects[level]).forEach(sub => allSubjects.add(sub))
+          Object.keys(mediumSubjects[level]).forEach((sub: string) => allSubjects.add(sub))
         }
       })
     })
-    
+
     // If no classes selected, show all subjects for the medium
     if (filters.classes.length === 0) {
-      Object.values(mediumSubjects).forEach(level => {
+      Object.values(mediumSubjects).forEach((level: any) => {
         if (level) {
-          Object.keys(level).forEach(sub => allSubjects.add(sub))
+          Object.keys(level).forEach((sub: string) => allSubjects.add(sub))
         }
       })
     }
-    
+
     return Array.from(allSubjects)
   }
 

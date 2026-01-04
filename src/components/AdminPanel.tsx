@@ -1,22 +1,29 @@
 import React, { useState } from 'react'
 import './AdminPanel.css'
 
-function AdminPanel({ teachers, bookings, onVerifyTeacher, onApproveBooking }) {
+interface AdminPanelProps {
+  teachers: any[];
+  bookings: any[];
+  onVerifyTeacher: (teacherId: any, status: string) => void;
+  onApproveBooking: (bookingId: string) => void;
+}
+
+function AdminPanel({ teachers, bookings, onVerifyTeacher, onApproveBooking }: AdminPanelProps) {
   const [activeTab, setActiveTab] = useState('verifications')
 
   // Pending verifications (tutors not yet verified)
-  const pendingVerifications = teachers.filter(t => !t.verified)
+  const pendingVerifications = teachers.filter((t: any) => !t.verified)
 
   // Pending bookings
-  const pendingBookings = bookings?.filter(b => b.status === 'pending') || []
+  const pendingBookings = bookings?.filter((b: any) => b.status === 'pending') || []
 
-  const handleVerify = (teacherId, status) => {
+  const handleVerify = (teacherId: any, status: string) => {
     if (onVerifyTeacher) {
       onVerifyTeacher(teacherId, status)
     }
   }
 
-  const handleApproveBooking = (bookingId) => {
+  const handleApproveBooking = (bookingId: string) => {
     if (onApproveBooking) {
       onApproveBooking(bookingId)
     }
@@ -70,7 +77,7 @@ function AdminPanel({ teachers, bookings, onVerifyTeacher, onApproveBooking }) {
                     <div className="qualifications-preview">
                       <strong>যোগ্যতা:</strong>
                       <ul>
-                        {teacher.qualifications.map((qual, idx) => (
+                        {teacher.qualifications.map((qual: string, idx: number) => (
                           <li key={idx}>{qual}</li>
                         ))}
                       </ul>

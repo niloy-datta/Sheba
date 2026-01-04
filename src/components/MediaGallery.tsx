@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
 import './MediaGallery.css'
 
-function MediaGallery({ onVideoSelect, teachers }) {
+interface MediaGalleryProps {
+  onVideoSelect: (video: any) => void;
+  teachers: any[];
+}
+
+function MediaGallery({ onVideoSelect, teachers }: MediaGalleryProps) {
   const [activeTab, setActiveTab] = useState('all')
   const [selectedClass, setSelectedClass] = useState('all')
 
@@ -298,8 +303,8 @@ function MediaGallery({ onVideoSelect, teachers }) {
     }
   ]
 
-  const filteredVideos = activeTab === 'all' 
-    ? videos 
+  const filteredVideos = activeTab === 'all'
+    ? videos
     : videos.filter(v => v.category === activeTab)
 
   // Filter by class level if education is selected
@@ -307,8 +312,8 @@ function MediaGallery({ onVideoSelect, teachers }) {
     ? filteredVideos.filter(v => v.classLevel === selectedClass)
     : filteredVideos
 
-  const filteredImages = activeTab === 'all' 
-    ? images 
+  const filteredImages = activeTab === 'all'
+    ? images
     : images.filter(i => i.category === activeTab)
 
   return (
@@ -316,25 +321,25 @@ function MediaGallery({ onVideoSelect, teachers }) {
       <div className="gallery-header">
         <h2>মিডিয়া গ্যালারি - বাংলাদেশ</h2>
         <div className="tabs">
-          <button 
+          <button
             className={`tab ${activeTab === 'all' ? 'active' : ''}`}
             onClick={() => setActiveTab('all')}
           >
             সব
           </button>
-          <button 
+          <button
             className={`tab ${activeTab === 'nature' ? 'active' : ''}`}
             onClick={() => setActiveTab('nature')}
           >
             প্রকৃতি
           </button>
-          <button 
+          <button
             className={`tab ${activeTab === 'urban' ? 'active' : ''}`}
             onClick={() => setActiveTab('urban')}
           >
             শহর
           </button>
-          <button 
+          <button
             className={`tab ${activeTab === 'education' ? 'active' : ''}`}
             onClick={() => setActiveTab('education')}
           >
@@ -347,8 +352,8 @@ function MediaGallery({ onVideoSelect, teachers }) {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '1rem' }}>
           <h3 className="section-title">ভিডিও</h3>
           {activeTab === 'education' && (
-            <select 
-              value={selectedClass} 
+            <select
+              value={selectedClass}
               onChange={(e) => setSelectedClass(e.target.value)}
               style={{
                 padding: '0.6rem 1.2rem',
@@ -380,8 +385,8 @@ function MediaGallery({ onVideoSelect, teachers }) {
         </div>
         <div className="video-grid">
           {classFilteredVideos.map(video => (
-            <div 
-              key={video.id} 
+            <div
+              key={video.id}
               className="video-card"
               onClick={() => onVideoSelect(video)}
             >
@@ -389,7 +394,7 @@ function MediaGallery({ onVideoSelect, teachers }) {
                 <img src={video.thumbnail} alt={video.title} />
                 <div className="play-overlay">
                   <svg width="64" height="64" viewBox="0 0 24 24" fill="white">
-                    <path d="M8 5v14l11-7z"/>
+                    <path d="M8 5v14l11-7z" />
                   </svg>
                 </div>
                 <span className="duration">{video.duration}</span>

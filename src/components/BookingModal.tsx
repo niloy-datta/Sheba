@@ -1,7 +1,13 @@
 import React, { useState } from 'react'
 import './BookingModal.css'
 
-function BookingModal({ teacher, onClose, onSubmit }) {
+interface BookingModalProps {
+  teacher: any;
+  onClose: () => void;
+  onSubmit: (data: any) => void;
+}
+
+function BookingModal({ teacher, onClose, onSubmit }: BookingModalProps) {
   const [formData, setFormData] = useState({
     subject: teacher?.subjects[0] || '',
     classLevel: '',
@@ -11,7 +17,7 @@ function BookingModal({ teacher, onClose, onSubmit }) {
     message: ''
   })
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (onSubmit) {
       onSubmit({
@@ -23,7 +29,7 @@ function BookingModal({ teacher, onClose, onSubmit }) {
     }
   }
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormData(prev => ({
       ...prev,
@@ -57,7 +63,7 @@ function BookingModal({ teacher, onClose, onSubmit }) {
               onChange={handleChange}
               required
             >
-              {teacher.subjects.map(subject => (
+              {teacher.subjects.map((subject: string) => (
                 <option key={subject} value={subject}>{subject}</option>
               ))}
             </select>
@@ -72,7 +78,7 @@ function BookingModal({ teacher, onClose, onSubmit }) {
               required
             >
               <option value="">ক্লাস নির্বাচন করুন</option>
-              {teacher.classes.map(cls => (
+              {teacher.classes.map((cls: string) => (
                 <option key={cls} value={cls}>{cls}</option>
               ))}
             </select>
@@ -126,7 +132,7 @@ function BookingModal({ teacher, onClose, onSubmit }) {
               value={formData.message}
               onChange={handleChange}
               placeholder="শিক্ষকের কাছে আপনার বার্তা..."
-              rows="4"
+              rows={4}
             />
           </div>
 

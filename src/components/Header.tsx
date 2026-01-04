@@ -1,14 +1,18 @@
 import React from 'react'
 import './Header.css'
 
-function Header({ onBack, currentView, onViewChange, onAuthClick, user, onAdminClick, theme, onThemeToggle }) {
-  const handleNavClick = (e, view) => {
-    e.preventDefault()
-    if (onViewChange) {
-      onViewChange(view)
-    }
-  }
+interface HeaderProps {
+  onBack?: (() => void) | null;
+  currentView: string;
+  onViewChange?: (view: string) => void;
+  onAuthClick: () => void;
+  user: any;
+  onAdminClick: () => void;
+  theme: string;
+  onThemeToggle: () => void;
+}
 
+function Header({ onBack, currentView, onViewChange, onAuthClick, user, onAdminClick, theme, onThemeToggle }: HeaderProps) {
   return (
     <header className="header">
       <div className="header-content">
@@ -22,8 +26,8 @@ function Header({ onBack, currentView, onViewChange, onAuthClick, user, onAdminC
           ShebaBD
         </h1>
         <nav className="nav">
-          <a 
-            href="#find-tutors" 
+          <a
+            href="#find-tutors"
             className={`nav-link ${currentView === 'find-tutors' || currentView === 'teachers' || currentView === 'home' ? 'active' : ''}`}
             onClick={(e) => {
               e.preventDefault()
@@ -34,8 +38,8 @@ function Header({ onBack, currentView, onViewChange, onAuthClick, user, onAdminC
           >
             Find Tutors
           </a>
-          <a 
-            href="#become-tutor" 
+          <a
+            href="#become-tutor"
             className="nav-link"
             onClick={(e) => {
               e.preventDefault()
@@ -46,8 +50,8 @@ function Header({ onBack, currentView, onViewChange, onAuthClick, user, onAdminC
           >
             Become a Tutor
           </a>
-          <a 
-            href="#quiz" 
+          <a
+            href="#quiz"
             className={`nav-link ${currentView === 'quiz' ? 'active' : ''}`}
             onClick={(e) => {
               e.preventDefault()
@@ -58,8 +62,8 @@ function Header({ onBack, currentView, onViewChange, onAuthClick, user, onAdminC
           >
             Quiz Portal
           </a>
-          <a 
-            href="#about" 
+          <a
+            href="#about"
             className="nav-link"
           >
             About Us

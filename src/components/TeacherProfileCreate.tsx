@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { classLevels, subjects } from '../data/subjects.js'
+import { classLevels, subjects } from '../data/subjects'
 import './TeacherProfileCreate.css'
 
 interface TeacherProfileProps {
@@ -213,7 +213,7 @@ function TeacherProfileCreate({ onSubmit, onCancel }: TeacherProfileProps) {
 
         // Check all mediums for subjects
         Object.keys(subjects).forEach(medium => {
-          const mediumSubjects = subjects[medium]
+          const mediumSubjects = subjects[medium as keyof typeof subjects] as Record<string, Record<string, string[]>>
           if (mediumSubjects && mediumSubjects[level]) {
             // Get all subject names from this level
             Object.keys(mediumSubjects[level]).forEach(subject => {
@@ -245,7 +245,7 @@ function TeacherProfileCreate({ onSubmit, onCancel }: TeacherProfileProps) {
         return ['বাংলা', 'ইংরেজি', 'গণিত', 'বিজ্ঞান', 'সামাজিক বিজ্ঞান']
       } else if (hasHigher) {
         return ['গণিত', 'পদার্থবিজ্ঞান', 'রসায়ন', 'জীববিজ্ঞান', 'ইংরেজি', 'বাংলা', 'উচ্চতর গণিত']
-      } else {
+      } else if (hasSecondary) {
         return ['গণিত', 'পদার্থবিজ্ঞান', 'রসায়ন', 'জীববিজ্ঞান', 'ইংরেজি', 'বাংলা', 'সাধারণ গণিত']
       }
     }
@@ -330,7 +330,7 @@ function TeacherProfileCreate({ onSubmit, onCancel }: TeacherProfileProps) {
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="••••••••"
-                  minLength="6"
+                  minLength={6}
                   className={errors.password ? 'error' : ''}
                 />
                 {errors.password && <span className="error-message">{errors.password}</span>}
@@ -344,7 +344,7 @@ function TeacherProfileCreate({ onSubmit, onCancel }: TeacherProfileProps) {
                   value={formData.confirmPassword}
                   onChange={handleChange}
                   placeholder="••••••••"
-                  minLength="6"
+                  minLength={6}
                   className={errors.confirmPassword ? 'error' : ''}
                 />
                 {errors.confirmPassword && <span className="error-message">{errors.confirmPassword}</span>}
@@ -486,7 +486,7 @@ function TeacherProfileCreate({ onSubmit, onCancel }: TeacherProfileProps) {
                 value={formData.bio}
                 onChange={handleChange}
                 placeholder="আপনার শিক্ষাগত যোগ্যতা, অভিজ্ঞতা এবং শিক্ষাদানের পদ্ধতি সম্পর্কে লিখুন..."
-                rows="6"
+                rows={6}
                 className={errors.bio ? 'error' : ''}
               />
               {errors.bio && <span className="error-message">{errors.bio}</span>}
@@ -541,9 +541,11 @@ function TeacherProfileCreate({ onSubmit, onCancel }: TeacherProfileProps) {
                 accept=".pdf,.jpg,.jpeg,.png"
                 multiple
                 onChange={(e) => {
-                  Array.from(e.target.files).forEach(file => {
-                    handleFileChange({ target: { files: [file] } }, 'documents')
-                  })
+                  if (e.target.files) {
+                    Array.from(e.target.files).forEach(file => {
+                      handleFileChange({ target: { files: [file] } }, 'documents')
+                    })
+                  }
                 }}
                 className="file-input"
               />

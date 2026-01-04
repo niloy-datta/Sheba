@@ -1,9 +1,16 @@
 import React, { useState } from 'react'
-import { districts, districtAreas, mediums } from '../data/bangladeshLocations.js'
-import { subjects } from '../data/subjects.js'
+import { districts, districtAreas, mediums } from '../data/bangladeshLocations'
+import { subjects } from '../data/subjects'
 import './HomePage.css'
 
-function HomePage({ teachers, onSearch, onTeacherSelect, onViewChange }) {
+interface HomePageProps {
+  teachers: any[];
+  onSearch?: (filters: any) => void;
+  onTeacherSelect?: (teacher: any) => void;
+  onViewChange?: (view: string) => void;
+}
+
+function HomePage({ teachers, onSearch, onTeacherSelect, onViewChange }: HomePageProps) {
   const [searchTerm, setSearchTerm] = useState('')
   const [filters, setFilters] = useState({
     division: '',
@@ -16,7 +23,7 @@ function HomePage({ teachers, onSearch, onTeacherSelect, onViewChange }) {
     availability: 'all'
   })
 
-  const handleDivisionChange = (division) => {
+  const handleDivisionChange = (division: string) => {
     setFilters({ ...filters, division, area: '' })
   }
 
@@ -30,18 +37,18 @@ function HomePage({ teachers, onSearch, onTeacherSelect, onViewChange }) {
     }
   }
 
-  const getAvailableAreas = () => {
-    if (!filters.division || !districtAreas[filters.division]) return []
-    return districtAreas[filters.division]
+  const getAvailableAreas = (): string[] => {
+    if (!filters.division || !districtAreas[filters.division as keyof typeof districtAreas]) return []
+    return districtAreas[filters.division as keyof typeof districtAreas]
   }
 
-  const getAvailableSubjects = () => {
-    if (!filters.medium || !subjects[filters.medium]) return []
-    const mediumSubjects = subjects[filters.medium]
-    const allSubjects = new Set()
-    Object.values(mediumSubjects).forEach(level => {
+  const getAvailableSubjects = (): string[] => {
+    if (!filters.medium || !subjects[filters.medium as keyof typeof subjects]) return []
+    const mediumSubjects = subjects[filters.medium as keyof typeof subjects] as Record<string, Record<string, string[]>>
+    const allSubjects = new Set<string>()
+    Object.values(mediumSubjects).forEach((level: any) => {
       if (level) {
-        Object.keys(level).forEach(sub => allSubjects.add(sub))
+        Object.keys(level).forEach((sub: string) => allSubjects.add(sub))
       }
     })
     return Array.from(allSubjects)
@@ -310,9 +317,9 @@ function HomePage({ teachers, onSearch, onTeacherSelect, onViewChange }) {
             <button className="text-link" onClick={() => onViewChange('privacy')}>Privacy</button>
           </div>
           <div className="footer-social">
-            <a href="#" className="social-icon">📘</a>
-            <a href="#" className="social-icon">🐦</a>
-            <a href="#" className="social-icon">📺</a>
+            <button type="button" className="social-icon" aria-label="Facebook">📘</button>
+            <button type="button" className="social-icon" aria-label="Twitter">🐦</button>
+            <button type="button" className="social-icon" aria-label="YouTube">📺</button>
           </div>
           <div className="footer-payments">
             <span className="payment-label">Payment Methods:</span>
