@@ -1,20 +1,39 @@
-<<<<<<< HEAD
-# Sheba
-=======
-# Sheba Media - React Media Website
+# ShebaBD - Tuition Media Platform 🎓
 
-A beautiful, modern media website built with React.js featuring video and image galleries.
+A comprehensive tuition media platform for students and teachers in Bangladesh, built with React and TypeScript.
 
-## Features
+## 🌟 Features
 
-- 🎥 Video gallery with playable videos
-- 🖼️ Image gallery with hover effects
-- 🎨 Modern, responsive UI design
-- 🔍 Category filtering (All, Nature, Urban)
-- 📱 Mobile-friendly responsive design
-- ⚡ Fast performance with Vite
+### For Students (শিক্ষার্থীদের জন্য)
 
-## Getting Started
+- 🔍 Advanced teacher search with filtering
+- 📚 Search by subject, location, class level, and more
+- 💰 Price range filtering
+- ⭐ Rating and review system
+- 📅 Easy booking system
+- 🎯 Personalized learning preferences
+
+### For Teachers (শিক্ষকদের জন্য)
+
+- 👨‍🏫 Professional profile creation
+- 📝 4-step registration process
+- 🎓 Showcase qualifications and experience
+- 💼 Set your own hourly rates
+- ✅ Verification system
+- 📊 Track your students and reviews
+
+### Additional Features
+
+- 🎥 Media gallery with videos
+- 🧠 Quiz portal for practice
+- 🌓 Dark/Light theme toggle
+- 🇧🇩 Bengali language support
+- 💾 Data persistence with localStorage
+- 📱 Fully responsive design
+- 🔐 Secure authentication system
+- 👨‍💼 Admin panel for verification
+
+## 🚀 Getting Started
 
 ### Prerequisites
 
@@ -23,17 +42,26 @@ A beautiful, modern media website built with React.js featuring video and image 
 
 ### Installation
 
-1. Install dependencies:
+1. Clone the repository:
+
+```bash
+git clone https://github.com/niloy-datta/Sheba.git
+cd Sheba
+```
+
+2. Install dependencies:
+
 ```bash
 npm install
 ```
 
-2. Start the development server:
+3. Start the development server:
+
 ```bash
-npm run dev
+npm start
 ```
 
-3. Open your browser and navigate to `http://localhost:3000`
+4. Open your browser and navigate to `http://localhost:3000`
 
 ### Build for Production
 
@@ -41,48 +69,107 @@ npm run dev
 npm run build
 ```
 
-The built files will be in the `dist` directory.
-
-### Preview Production Build
-
-```bash
-npm run preview
-```
-
-## Project Structure
+## 🏗️ Project Structure
 
 ```
 sheba/
 ├── src/
-│   ├── components/
-│   │   ├── Header.jsx
-│   │   ├── MediaGallery.jsx
-│   │   └── VideoPlayer.jsx
-│   ├── App.jsx
-│   ├── App.css
-│   ├── main.jsx
-│   └── index.css
-├── index.html
-├── vite.config.js
-└── package.json
+│   ├── components/          # All React components
+│   │   ├── Header.tsx
+│   │   ├── HomePage.tsx
+│   │   ├── StudentDashboard.tsx
+│   │   ├── TeachersList.tsx
+│   │   ├── TeacherProfile.tsx
+│   │   ├── AuthModal.tsx
+│   │   ├── BookingModal.tsx
+│   │   ├── AdminPanel.tsx
+│   │   ├── QuizPortal.tsx
+│   │   └── ... (and more)
+│   ├── data/                # Static data files
+│   ├── App.tsx              # Main application component
+│   ├── index.tsx            # Application entry point
+│   └── index.css            # Global styles
+├── public/                  # Public assets
+├── package.json
+└── README.md
 ```
 
-## Technologies Used
+## 🧪 Technologies Used
 
-- React 18
-- Vite
-- React Router DOM
-- CSS3 (with modern features)
+- **React 19** - UI framework
+- **TypeScript 4.9** - Type safety
+- **React Scripts 5.0** - Build tooling
+- **CSS3** - Styling with modern features
+- **localStorage** - Data persistence
 
-## Customization
+## 📖 Key Components
 
-You can customize the media content by editing the data arrays in `src/components/MediaGallery.jsx`:
+### Student Features
 
-- Update the `videos` array to add/remove videos
-- Update the `images` array to add/remove images
-- Modify categories and filters as needed
+- **StudentProfileCreate**: 4-step student registration
+- **StudentDashboard**: Search and filter teachers
+- **BangladeshSearchFilters**: Advanced location-based filtering
 
-## License
+### Teacher Features
 
-MIT
->>>>>>> bce6be4 (Backup: Project state with TypeScript conversion in progress)
+- **TeacherProfileCreate**: 4-step teacher registration
+- **TeachersList**: Browse all verified teachers
+- **TeacherProfile**: Detailed teacher information
+
+### Core Features
+
+- **AuthModal**: Login and registration
+- **BookingModal**: Book a tuition session
+- **AdminPanel**: Verify teachers and manage bookings
+- **QuizPortal**: Subject-based quiz system
+- **MediaGallery**: Video and image content
+
+## 🎯 User Roles
+
+1. **Student** - Search for teachers, book sessions
+2. **Teacher** - Create profile, get verified, receive bookings
+3. **Admin** - Verify teachers, manage bookings
+
+## 🔒 Data Persistence
+
+All data is stored in localStorage:
+
+- User accounts and profiles
+- Teacher listings
+- Booking requests
+- Theme preferences
+
+## 📱 Responsive Design
+
+The platform is fully responsive and works on:
+
+- 📱 Mobile devices
+- 📱 Tablets
+- 💻 Desktop computers
+
+## 🌍 Language Support
+
+- Full Bengali (বাংলা) language support
+- Bilingual content for better accessibility
+
+## 📄 Documentation
+
+For detailed functionality documentation, see [FUNCTIONALITY_DETAILS.md](./FUNCTIONALITY_DETAILS.md)
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to open issues or submit pull requests.
+
+## 📧 Contact
+
+- **Name**: Niloy Chandra Datta
+- **GitHub**: [@niloy-datta](https://github.com/niloy-datta)
+- **Repository**: [Sheba](https://github.com/niloy-datta/Sheba)
+
+## 📝 License
+
+This project is open source and available under the MIT License.
+
+---
+
+**Made with ❤️ for the students and teachers of Bangladesh**
